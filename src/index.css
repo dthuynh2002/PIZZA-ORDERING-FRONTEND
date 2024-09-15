@@ -9,19 +9,19 @@ body {
   font-family: 'JetBrains Mono', monospace;
 }
 
-html{
+html {
   font-size: 62.5%;
 }
 
-.Toastify_toast {
+.Toastify__toast {
   font-family: 'JetBrains Mono', monospace;
   font-size: 16px;
   color: #333;
 
 }
 
-.Toastify_toast_body {
-    font-family: 'JetBrains Mono', monospace;
-      font-size: 14px;
-      color: gray;
+.Toastify__toast_body {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: gray;
 }
