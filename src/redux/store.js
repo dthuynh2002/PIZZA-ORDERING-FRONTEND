@@ -1,13 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-import { authReducer } from '~/redux/slice';
+import { authReducer, userReducer } from '~/redux/slice';
 import rootSaga from '~/redux/saga/rootSaga';
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = configureStore({
     reducer: {
-        auth: authReducer
+        auth: authReducer,
+        user: userReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({ serializableCheck: false }).concat(sagaMiddleware)

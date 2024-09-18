@@ -14,3 +14,20 @@ export const getUser = async (access_token) => {
         }
     });
 };
+
+export const updateUser = async (access_token, formData) => {
+    return await axios.put(`user/update`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${access_token}`
+        }
+    });
+};
+
+export const changePassword = async (access_token, data) => {
+    return await axios.patch(`user/change-password`, data, {
+        headers: {
+            Authorization: `Bearer ${access_token}`
+        }
+    });
+};
