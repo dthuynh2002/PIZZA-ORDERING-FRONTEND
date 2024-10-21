@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { setToken } from '~/utils/token';
+import { removeToken, setToken } from '~/utils/token';
 const initialState = {
     user: {
         user_name: '',
@@ -57,6 +57,12 @@ const userSlice = createSlice({
         logoutUser: (state) => {
             state.user = initialState.user;
             removeToken('user');
+        },
+        restoreUserState: (state, action) => {
+            const storeUser = action.payload;
+            if (storeUser) {
+                state.user = storeUser;
+            }
         }
     }
 });

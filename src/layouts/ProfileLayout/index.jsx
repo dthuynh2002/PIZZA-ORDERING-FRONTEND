@@ -10,35 +10,26 @@ import {
     useSelector
     // useDispatch
 } from 'react-redux';
-// import { userActions } from '~/redux/slice/userSlice';
-// import { getToken } from '~/utils/token';
 
 const ProfileLayout = () => {
     const user = useSelector((state) => state.user.user);
-
-    // const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //     const authData = getToken('auth').auth.access_token;
-    //     dispatch(userActions.getUser(authData));
-    // }, [dispatch]);
 
     let urlImage = import.meta.env.URL_IMAGE || 'http://localhost:3001/images/';
 
     const nav = [
         {
             id: 1,
-            name: 'Profile',
+            name: 'Thông tin người dùng',
             path: 'profile'
         },
         {
             id: 2,
-            name: 'Order History',
+            name: 'Lịch sử đơn hàng',
             path: 'history'
         },
         {
             id: 3,
-            name: 'Change Password',
+            name: 'Thay đổi mật khẩu',
             path: 'change-password'
         }
     ];
@@ -61,12 +52,12 @@ const ProfileLayout = () => {
                             onClick={backHandler}
                         >
                             <LeftOutlined />
-                            <span>Back</span>
+                            <span>Về trang chủ</span>
                         </button>
                         <img
                             src={user.avatar ? urlImage + user?.avatar : defaultAvatar}
                             alt='avatar'
-                            className='w-24 h-24 rounded-full'
+                            className='w-20 h-20 rounded-full'
                         />
                     </div>
                 </div>

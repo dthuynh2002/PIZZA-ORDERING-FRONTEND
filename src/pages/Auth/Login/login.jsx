@@ -2,7 +2,7 @@ import { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Input, Spin } from 'antd';
 import { FormOutlined, SafetyOutlined } from '@ant-design/icons';
-import background from '~/assets/images/background.avif';
+import background from '~/assets/images/background.jpg';
 import { WrapperButton } from '~/pages/Auth/style';
 import { Link, useNavigate } from 'react-router-dom';
 import { authActions } from '~/redux/slice/authSlice';
@@ -63,28 +63,28 @@ const LoginPage = () => {
                 style={{ backgroundImage: `url(${background})` }}
             >
                 <form
-                    className='w-1/3 h-fit bg-[rgba(0,0,0,0.57)] text-white rounded-xl flex flex-col justify-center py-32 px-10 gap-10 '
+                    className='w-1/3 h-fit bg-[rgba(0,0,0,0.74)] text-white rounded-xl flex flex-col justify-center py-32 px-10 gap-10 '
                     style={{ backdropFilter: 'blur(19px) saturate(180%)' }}
                 >
-                    <div className='text-4xl font-bold text-center uppercase'>login</div>
+                    <div className='text-4xl font-bold text-center uppercase'>Đăng nhập</div>
                     <div className='flex flex-col '>
                         <label className='text-2xl'>Email :</label>
                         <Input
                             autoFocus
                             size='large'
                             prefix={<FormOutlined />}
-                            placeholder='Email'
+                            placeholder='Nhập Email'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
 
                     <div className='flex flex-col '>
-                        <label className='text-2xl'>Password :</label>
+                        <label className='text-2xl'>Mật khẩu :</label>
                         <Input.Password
                             size='large'
                             prefix={<SafetyOutlined />}
-                            placeholder='Password'
+                            placeholder='Nhập mật khẩu'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
@@ -94,12 +94,12 @@ const LoginPage = () => {
                         type='light'
                         onClick={handleLogin}
                     >
-                        Login
+                        Đăng nhập
                     </WrapperButton>
                     <span className='text-center'>
-                        {`Don't have an account?`}{' '}
+                        {`Bạn đã có tài khoản?`}{' '}
                         <Link className='text-blue-300 underline' to='/register'>
-                            Register
+                            Đăng ký
                         </Link>
                     </span>
                 </form>

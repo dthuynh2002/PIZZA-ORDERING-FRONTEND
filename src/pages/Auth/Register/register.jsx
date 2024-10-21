@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 import { Input, Spin } from 'antd';
 import { UserOutlined, FormOutlined, PhoneOutlined, SafetyOutlined } from '@ant-design/icons';
-import background from '~/assets/images/background.avif';
+import background from '~/assets/images/background.jpg';
 import { WrapperButton } from '~/pages/Auth/style';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -65,17 +65,17 @@ const RegisterPage = () => {
                 style={{ backgroundImage: `url(${background})` }}
             >
                 <form
-                    className='w-1/3 h-fit bg-[rgba(0,0,0,0.57)] text-white rounded-xl flex flex-col justify-center py-32 px-10 gap-10 '
+                    className='w-1/3 h-fit bg-[rgba(0,0,0,0.74)] text-white rounded-xl flex flex-col justify-center py-32 px-10 gap-10 '
                     style={{ backdropFilter: 'blur(19px) saturate(180%)' }}
                 >
-                    <div className='text-4xl font-bold text-center uppercase'>register</div>
+                    <div className='text-4xl font-bold text-center uppercase'>đăng ký</div>
                     <div className='flex flex-col '>
-                        <label className='text-2xl'>User Name:</label>
+                        <label className='text-2xl'>Tên người dùng:</label>
                         <Input
                             autoFocus
                             size='large'
                             prefix={<UserOutlined />}
-                            placeholder='User Name'
+                            placeholder='Nhập tên người dùng'
                             value={user_name}
                             onChange={(e) => setUserName(e.target.value)}
                         />
@@ -85,27 +85,27 @@ const RegisterPage = () => {
                         <Input
                             size='large'
                             prefix={<FormOutlined />}
-                            placeholder='Email'
+                            placeholder='Nhập Email'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                     <div className='flex flex-col '>
-                        <label className='text-2xl'>Phone number :</label>
+                        <label className='text-2xl'>Số điện thoại :</label>
                         <Input
                             size='large'
                             prefix={<PhoneOutlined />}
-                            placeholder='Phone number'
+                            placeholder='Nhập số điện thoại'
                             value={phone_number}
                             onChange={(e) => setPhoneNumber(e.target.value)}
                         />
                     </div>
                     <div className='flex flex-col '>
-                        <label className='text-2xl'>Password :</label>
+                        <label className='text-2xl'>Mật khẩu :</label>
                         <Input.Password
                             size='large'
                             prefix={<SafetyOutlined />}
-                            placeholder='Password'
+                            placeholder='Nhập mật khẩu'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
@@ -115,12 +115,12 @@ const RegisterPage = () => {
                         type='light'
                         onClick={registerHandler}
                     >
-                        Register
+                        Đăng ký
                     </WrapperButton>
                     <span className='text-center'>
-                        Already have an account? {''}
+                        Bạn đã có tài khoản ? {''}
                         <Link className='text-blue-300 underline' to='/login'>
-                            Login
+                            Đăng nhập
                         </Link>
                     </span>
                 </form>

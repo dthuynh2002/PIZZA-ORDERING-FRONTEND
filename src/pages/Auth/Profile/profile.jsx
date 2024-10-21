@@ -114,15 +114,15 @@ const ProfilePage = () => {
                         />
                         <div className='flex items-center justify-center px-4 py-2 font-semibold text-white transition-all bg-blue-500 rounded-md shadow-md cursor-pointer hover:bg-blue-600'>
                             <PictureOutlined className='mr-2' />
-                            Upload Avatar
+                            Chọn ảnh đại diện
                         </div>
                     </div>
                 </div>
                 <div className='flex items-center gap-10'>
-                    <label className='text-2xl w-[40%] text-left '>User Name: </label>
+                    <label className='text-2xl w-[40%] text-left '>Tên người dùng: </label>
                     <Input
                         size='large'
-                        placeholder='User Name'
+                        placeholder='Nhập tên người dùng'
                         prefix={<UserOutlined />}
                         value={userName}
                         onChange={(e) => setUserName(e.target.value)}
@@ -140,20 +140,20 @@ const ProfilePage = () => {
                     />
                 </div>
                 <div className='flex items-center gap-10'>
-                    <label className='text-2xl w-[40%] text-left '>Phone Number: </label>
+                    <label className='text-2xl w-[40%] text-left '>Số điện thoại: </label>
                     <Input
                         size='large'
-                        placeholder='Phone Number'
+                        placeholder='Nhập số điện thoại'
                         prefix={<PhoneOutlined />}
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
                     />
                 </div>
                 <div className='flex items-center gap-10'>
-                    <label className='text-2xl w-[40%] text-left '>Address: </label>
+                    <label className='text-2xl w-[40%] text-left '>Đại chỉ: </label>
                     <Input
                         size='large'
-                        placeholder='Address'
+                        placeholder='Nhập địa chỉ'
                         prefix={<HomeOutlined />}
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
@@ -165,7 +165,7 @@ const ProfilePage = () => {
                         type='primary'
                         onClick={handleSubmit}
                     >
-                        Submit
+                        Lưu thay đổi
                     </Button>
                 </div>
             </form>

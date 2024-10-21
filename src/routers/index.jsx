@@ -9,6 +9,7 @@ import ProductPage from '~/pages/Product/product';
 import ProfilePage from '~/pages/Auth/Profile/profile';
 import ChangePasswordPage from '~/pages/Auth/ChangePassword/changePassword';
 import OrderHistoryPage from '~/pages/Auth/OrderHistory/oderHistory';
+import AboutUs from '~/pages/AboutUs/aboutUs';
 
 export const router = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
             {
                 path: 'product',
                 element: <ProductPage />
+            },
+            {
+                path: 'about-us',
+                element: <AboutUs />
             }
         ]
     },

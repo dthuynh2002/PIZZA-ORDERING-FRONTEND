@@ -41,31 +41,31 @@ const ChangePasswordPage = () => {
             )}
             <form className='flex flex-col gap-5'>
                 <div className='flex items-center gap-10'>
-                    <label className='text-2xl w-[40%] text-left '>Password: </label>
+                    <label className='text-2xl w-[40%] text-left '>Mật khẩu hiện tại: </label>
                     <Input.Password
                         autoFocus
                         size='large'
-                        placeholder='Password'
+                        placeholder='Nhập mật khẩu hiện tại của bạn'
                         prefix={<LockOutlined />}
                         value={currentPassword}
                         onChange={(e) => setCurrentPassword(e.target.value)}
                     />
                 </div>
                 <div className='flex items-center gap-10'>
-                    <label className='text-2xl w-[40%] text-left '>New Password: </label>
+                    <label className='text-2xl w-[40%] text-left '>Mật khẩu mới: </label>
                     <Input.Password
                         size='large'
-                        placeholder='New Password'
+                        placeholder='Nhập mật khẩu mới của bạn'
                         prefix={<LockOutlined />}
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
                     />
                 </div>
                 <div className='flex items-center gap-10'>
-                    <label className='text-2xl w-[40%] text-left '>Comfirm Password: </label>
+                    <label className='text-2xl w-[40%] text-left '>Nhập mật khẩu mới: </label>
                     <Input.Password
                         size='large'
-                        placeholder='Confirm Password'
+                        placeholder='Nhập lại mật khẩu mới của bạn'
                         prefix={<LockOutlined />}
                         value={comfirmPassword}
                         onChange={(e) => setComfirmPassword(e.target.value)}
@@ -81,7 +81,7 @@ const ChangePasswordPage = () => {
                             currentPassword === '' || newPassword === '' || comfirmPassword === ''
                         }
                     >
-                        Submit
+                        Xác nhận
                     </Button>
                 </div>
             </form>

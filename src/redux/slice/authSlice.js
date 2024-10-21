@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { setToken, removeToken } from '~/utils/token';
 import { toast } from 'react-toastify';
-import { act } from 'react';
 
 const initialState = {
     auth: {
@@ -43,6 +42,13 @@ const authSlice = createSlice({
             state.isAuthenticated = false;
             removeToken('auth');
             state.auth = initialState.auth;
+        },
+        restoreAuthState: (state, action) => {
+            const storeAuth = action.payload;
+            if (storeAuth) {
+                state.auth = storeAuth.auth;
+                state.isAuthenticated = storeAuth.isAuthenticated;
+            }
         }
     }
 });
