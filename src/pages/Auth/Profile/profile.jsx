@@ -22,7 +22,7 @@ const ProfilePage = () => {
     const [address, setAddress] = useState(user.address || '');
     const [loading, setLoading] = useState(false);
 
-    let urlImage = import.meta.env.URL_IMAGE || 'http://localhost:3001/images/';
+    let urlImage = import.meta.env.VITE_URL_IMAGE || 'http://localhost:3001/images/';
     useEffect(() => {
         const authData = getToken('auth');
         const userData = getToken('user');

@@ -1,15 +1,23 @@
 import { Badge, Tabs } from 'antd';
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import producttest from '~/assets/images/Pizza_HaiSan.jpg';
 import { WrapperCartScroll, WrapperMenuScroll } from './style';
 import { formatVND } from '~/utils/formatVND';
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
+import ProductModalDetail from './productModalDetail';
 
 const ProductPage = () => {
+    const [isModalVisible, setIsModalVisible] = useState(false);
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, []);
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+    const handelCancel = () => {
+        setIsModalVisible(false);
+    };
     const navigate = useNavigate();
     const gotoCart = () => {
         navigate('/cart');
@@ -60,7 +68,10 @@ const ProductPage = () => {
                                                     {formatVND(175000)}đ
                                                 </span>
                                             </div>
-                                            <div className='px-4 py-2 border-2 cursor-pointer rounded-xl hover:text-red-600 hover:border-red-600'>
+                                            <div
+                                                className='px-4 py-2 border-2 cursor-pointer rounded-xl hover:text-red-600 hover:border-red-600'
+                                                onClick={() => showModal()}
+                                            >
                                                 Order now
                                             </div>
                                         </div>
@@ -286,6 +297,7 @@ const ProductPage = () => {
                             Thanh toán
                         </div>
                     </div>
+                    <ProductModalDetail isVisible={isModalVisible} onCancel={handelCancel} />
                 </div>
             </div>
         </Fragment>

@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Popover } from 'antd';
+import { Badge, Button, Popover } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '~/redux/slice/authSlice';
 import { getToken } from '~/utils/token';
@@ -12,7 +12,7 @@ const Header = () => {
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
     const user = useSelector((state) => state.user.user);
 
-    let urlImage = import.meta.env.URL_IMAGE || 'http://localhost:3001/images/';
+    let urlImage = import.meta.env.VITE_URL_IMAGE || 'http://localhost:3001/images/';
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -28,6 +28,10 @@ const Header = () => {
     };
     const gotoAdmin = () => {
         navigate('/admin');
+    };
+
+    const gotoCart = () => {
+        navigate('/cart');
     };
 
     useEffect(() => {
@@ -62,7 +66,12 @@ const Header = () => {
                     <div className='flex items-center gap-10'>
                         {isAuthenticated ? (
                             <Fragment>
-                                <ShoppingCartOutlined style={{ fontSize: '30px' }} />
+                                <Badge count={5} size='small'>
+                                    <ShoppingCartOutlined
+                                        style={{ fontSize: '30px' }}
+                                        onClick={gotoCart}
+                                    />
+                                </Badge>
                                 <div className=''>|</div>
 
                                 <Popover

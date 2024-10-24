@@ -10,6 +10,8 @@ import ProfilePage from '~/pages/Auth/Profile/profile';
 import ChangePasswordPage from '~/pages/Auth/ChangePassword/changePassword';
 import OrderHistoryPage from '~/pages/Auth/OrderHistory/oderHistory';
 import AboutUs from '~/pages/AboutUs/aboutUs';
+import Cart from '~/pages/Cart/cart';
+import AdminLayout from '~/layouts/AdminLayout';
 
 export const router = createBrowserRouter([
     {
@@ -27,6 +29,10 @@ export const router = createBrowserRouter([
             {
                 path: 'about-us',
                 element: <AboutUs />
+            },
+            {
+                path: 'cart',
+                element: <Cart />
             }
         ]
     },
@@ -53,6 +59,56 @@ export const router = createBrowserRouter([
             {
                 path: 'history',
                 element: <OrderHistoryPage />
+            }
+        ]
+    },
+    {
+        path: '/',
+        element: <AdminLayout />,
+        children: [
+            {
+                path: 'dashboard',
+                element: <h1>Dashboard</h1>
+            },
+            {
+                path: 'products',
+                element: <h1>Product </h1>
+            },
+            {
+                path: 'category',
+                element: <h1>Category</h1>
+            },
+            {
+                path: 'size',
+                element: <h1>Size</h1>
+            },
+            {
+                path: 'topping',
+                element: <h1>Topping</h1>
+            },
+            {
+                path: 'order',
+                element: <h1>Order</h1>
+            },
+            {
+                path: 'user',
+                element: <h1>User</h1>
+            },
+            {
+                path: 'staff',
+                element: <h1>Staff</h1>
+            },
+            {
+                path: 'supervisor',
+                element: <h1>Supervisor</h1>
+            },
+            {
+                path: 'admin-profile',
+                element: <ProfilePage />
+            },
+            {
+                path: 'admin-change-password',
+                element: <ChangePasswordPage />
             }
         ]
     }

@@ -14,7 +14,7 @@ import {
 const ProfileLayout = () => {
     const user = useSelector((state) => state.user.user);
 
-    let urlImage = import.meta.env.URL_IMAGE || 'http://localhost:3001/images/';
+    let urlImage = import.meta.env.VITE_URL_IMAGE || 'http://localhost:3001/images/';
 
     const nav = [
         {
