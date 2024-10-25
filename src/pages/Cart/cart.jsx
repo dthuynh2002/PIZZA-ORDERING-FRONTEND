@@ -3,8 +3,13 @@ import { formatVND } from '~/utils/formatVND';
 import producttest from '~/assets/images/Pizza_HaiSan.jpg';
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
 import { WrapperCartScroll } from '../Product/style';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
+    const navigate = useNavigate();
+    const gotoPayment = () => {
+        navigate('/payment');
+    };
     return (
         <div className='flex justify-center py-10'>
             <div className='w-[50%]'>
@@ -137,7 +142,10 @@ const Cart = () => {
                         <span>Thành tiền</span>
                         <span>{formatVND(175000)}đ</span>
                     </div>
-                    <div className='py-3 text-center text-white bg-black rounded-lg cursor-pointer hover:bg-red-700'>
+                    <div
+                        className='py-3 text-center text-white bg-black rounded-lg cursor-pointer hover:bg-red-700'
+                        onClick={gotoPayment}
+                    >
                         Thanh toán
                     </div>
                 </div>

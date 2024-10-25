@@ -12,6 +12,8 @@ import OrderHistoryPage from '~/pages/Auth/OrderHistory/oderHistory';
 import AboutUs from '~/pages/AboutUs/aboutUs';
 import Cart from '~/pages/Cart/cart';
 import AdminLayout from '~/layouts/AdminLayout';
+import Payment from '~/pages/Payment/payment';
+import TrackingPage from '~/pages/Auth/Tracking/tracking';
 
 export const router = createBrowserRouter([
     {
@@ -33,6 +35,10 @@ export const router = createBrowserRouter([
             {
                 path: 'cart',
                 element: <Cart />
+            },
+            {
+                path: 'payment',
+                element: <Payment />
             }
         ]
     },
@@ -59,6 +65,10 @@ export const router = createBrowserRouter([
             {
                 path: 'history',
                 element: <OrderHistoryPage />
+            },
+            {
+                path: 'tracking',
+                element: <TrackingPage />
             }
         ]
     },

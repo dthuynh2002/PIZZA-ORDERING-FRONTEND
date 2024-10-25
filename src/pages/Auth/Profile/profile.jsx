@@ -100,75 +100,77 @@ const ProfilePage = () => {
                     <Spin size='large' />
                 </div>
             )}
-            <form className='flex flex-col gap-5'>
-                <div className='flex flex-col items-center'>
-                    <div className='flex items-center justify-center w-full gap-5 my-5'>
-                        {handleReviewImage()}
-                    </div>
-                    <div className='relative w-60'>
-                        <input
-                            type='file'
-                            accept='image/*'
-                            onChange={handleUploadFilesImage}
-                            className='absolute inset-0 h-full opacity-0 cursor-pointer w-60'
-                        />
-                        <div className='flex items-center justify-center px-4 py-2 font-semibold text-white transition-all bg-blue-500 rounded-md shadow-md cursor-pointer hover:bg-blue-600'>
-                            <PictureOutlined className='mr-2' />
-                            Chọn ảnh đại diện
+            <div className='w-[60%] my-5 text-center border-2 border-[#eeefee] rounded-2xl p-5 bg-white shadow-xl'>
+                <form className='flex flex-col justify-center gap-5 p-5'>
+                    <div className='flex flex-col items-center'>
+                        <div className='flex items-center justify-center w-full gap-5 my-5'>
+                            {handleReviewImage()}
+                        </div>
+                        <div className='relative w-60'>
+                            <input
+                                type='file'
+                                accept='image/*'
+                                onChange={handleUploadFilesImage}
+                                className='absolute inset-0 h-full opacity-0 cursor-pointer w-60'
+                            />
+                            <div className='flex items-center justify-center px-4 py-2 font-semibold text-white transition-all bg-blue-500 rounded-md shadow-md cursor-pointer hover:bg-blue-600'>
+                                <PictureOutlined className='mr-2' />
+                                Chọn ảnh đại diện
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className='flex items-center gap-10'>
-                    <label className='text-2xl w-[40%] text-left '>Tên người dùng: </label>
-                    <Input
-                        size='large'
-                        placeholder='Nhập tên người dùng'
-                        prefix={<UserOutlined />}
-                        value={userName}
-                        onChange={(e) => setUserName(e.target.value)}
-                    />
-                </div>
-                <div className='flex items-center gap-10'>
-                    <label className='text-2xl w-[40%] text-left '>Email: </label>
-                    <Input
-                        size='large'
-                        disabled
-                        placeholder='Email'
-                        prefix={<MailOutlined />}
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </div>
-                <div className='flex items-center gap-10'>
-                    <label className='text-2xl w-[40%] text-left '>Số điện thoại: </label>
-                    <Input
-                        size='large'
-                        placeholder='Nhập số điện thoại'
-                        prefix={<PhoneOutlined />}
-                        value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
-                    />
-                </div>
-                <div className='flex items-center gap-10'>
-                    <label className='text-2xl w-[40%] text-left '>Đại chỉ: </label>
-                    <Input
-                        size='large'
-                        placeholder='Nhập địa chỉ'
-                        prefix={<HomeOutlined />}
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                    />
-                </div>
-                <div className='flex justify-end w-full mt-10 '>
-                    <Button
-                        className='w-[15%] font-bold h-14'
-                        type='primary'
-                        onClick={handleSubmit}
-                    >
-                        Lưu thay đổi
-                    </Button>
-                </div>
-            </form>
+                    <div className='flex items-center gap-10'>
+                        <label className='text-2xl w-[40%] text-left '>Tên người dùng: </label>
+                        <Input
+                            size='large'
+                            placeholder='Nhập tên người dùng'
+                            prefix={<UserOutlined />}
+                            value={userName}
+                            onChange={(e) => setUserName(e.target.value)}
+                        />
+                    </div>
+                    <div className='flex items-center gap-10'>
+                        <label className='text-2xl w-[40%] text-left '>Email: </label>
+                        <Input
+                            size='large'
+                            disabled
+                            placeholder='Email'
+                            prefix={<MailOutlined />}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </div>
+                    <div className='flex items-center gap-10'>
+                        <label className='text-2xl w-[40%] text-left '>Số điện thoại: </label>
+                        <Input
+                            size='large'
+                            placeholder='Nhập số điện thoại'
+                            prefix={<PhoneOutlined />}
+                            value={phoneNumber}
+                            onChange={(e) => setPhoneNumber(e.target.value)}
+                        />
+                    </div>
+                    <div className='flex items-center gap-10'>
+                        <label className='text-2xl w-[40%] text-left '>Đại chỉ: </label>
+                        <Input
+                            size='large'
+                            placeholder='Nhập địa chỉ'
+                            prefix={<HomeOutlined />}
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                        />
+                    </div>
+                    <div className='flex justify-end w-full mt-10 '>
+                        <Button
+                            className='w-[15%] font-bold h-14'
+                            type='primary'
+                            onClick={handleSubmit}
+                        >
+                            Lưu thay đổi
+                        </Button>
+                    </div>
+                </form>
+            </div>
         </Fragment>
     );
 };
