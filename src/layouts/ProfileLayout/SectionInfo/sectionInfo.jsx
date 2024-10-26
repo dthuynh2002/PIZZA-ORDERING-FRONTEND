@@ -54,7 +54,6 @@ const SectionInfo = () => {
                         <span
                             className='my-2 text-2xl text-red-500 cursor-pointer'
                             onClick={goToHomeHandler}
-                            style={{ fontFamily: 'LXGW WenKai TC', cursive: 'LXGW Wen' }}
                         >
                             Về trang chủ
                         </span>

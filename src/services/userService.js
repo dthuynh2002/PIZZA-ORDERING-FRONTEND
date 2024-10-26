@@ -31,3 +31,22 @@ export const changePassword = async (access_token, data) => {
         }
     });
 };
+
+export const getAllCustomers = async (accessToken, { page, limit }) => {
+    return await axios.get(`user/all?page=${page}&limit=${limit}`, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    });
+};
+export const changeUserStatus = async (accessToken, id, { active }) => {
+    return await axios.patch(
+        `user/update-status/${id}`,
+        { active },
+        {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        }
+    );
+};

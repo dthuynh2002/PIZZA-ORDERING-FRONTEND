@@ -7,3 +7,12 @@ export const getProductById = async (accessToken, productId) => {
         }
     });
 };
+
+export const getAllProducts = async ({ page, limit }) => {
+    return await axios.get(`/product/gets?page=${page}&limit=${limit}`);
+};
+
+// Product Size
+export const getAllProductSizesByProduct = async (productId) => {
+    return await axios.get(`/product-size/getAll?product_id=${productId}`);
+};

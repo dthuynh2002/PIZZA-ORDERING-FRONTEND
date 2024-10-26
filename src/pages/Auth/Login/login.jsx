@@ -40,7 +40,7 @@ const LoginPage = () => {
                     checkRole === '449cbc4f-1901-4724-8881-c5fc3b6253e1' || //ADMIN
                     checkRole === '945a8db9-dc54-4442-9f98-49c6c380f130' //STAFF
                 ) {
-                    navigate('/product');
+                    navigate('/dashboard');
                 } else {
                     navigate('/');
                 }

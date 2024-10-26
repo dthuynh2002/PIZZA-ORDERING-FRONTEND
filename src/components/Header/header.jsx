@@ -1,9 +1,8 @@
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Badge, Button, Popover } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '~/redux/slice/authSlice';
-import { getToken } from '~/utils/token';
 import logo from '~/assets/images/logo.png';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import defaultAvatar from '~/assets/images/avt.jpg';
@@ -23,28 +22,20 @@ const Header = () => {
         setOpen(newOpen);
     };
 
+    const backHome = () => {
+        navigate('/');
+    };
+
     const gotoProfile = () => {
         navigate('/profile');
     };
     const gotoAdmin = () => {
-        navigate('/admin');
+        navigate('/dashboard');
     };
 
     const gotoCart = () => {
         navigate('/cart');
     };
-
-    useEffect(() => {
-        const authData = getToken('auth');
-        if (authData && authData.isAuthenticated) {
-            dispatch(
-                authActions.loginUserSuccess({
-                    data: authData.auth,
-                    message: null
-                })
-            );
-        }
-    }, [dispatch]);
 
     const logOutHandler = () => {
         dispatch(authActions.logoutUser());
@@ -55,13 +46,12 @@ const Header = () => {
             <header className='sticky top-0 z-10 flex items-center text-2xl justify-between text-red-600 bg-[#f4f6f8]'>
                 <div className='flex items-center justify-between w-full pr-10 mx-auto '>
                     <div className='w-full h-auto'>
-                        <Link to='/'>
-                            <img
-                                src={logo}
-                                alt=''
-                                className='h-24 bg-center bg-no-repeat bg-cover w-60 '
-                            />
-                        </Link>
+                        <img
+                            src={logo}
+                            alt=''
+                            className='h-24 bg-center bg-no-repeat bg-cover w-60 '
+                            onClick={backHome}
+                        />
                     </div>
                     <div className='flex items-center gap-10'>
                         {isAuthenticated ? (
@@ -88,7 +78,7 @@ const Header = () => {
                                                 >
                                                     Thông tin cá nhân
                                                 </div>
-                                                {user.role ===
+                                                {user.role_id ===
                                                     '449cbc4f-1901-4724-8881-c5fc3b6253e1' && (
                                                     <div
                                                         className='text-2xl cursor-pointer py-2 hover:bg-[#f4f4f4]'

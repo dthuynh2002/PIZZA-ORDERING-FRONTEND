@@ -14,6 +14,10 @@ import Cart from '~/pages/Cart/cart';
 import AdminLayout from '~/layouts/AdminLayout';
 import Payment from '~/pages/Payment/payment';
 import TrackingPage from '~/pages/Auth/Tracking/tracking';
+import Category from '~/pages/Admin/Category/category';
+import Size from '~/pages/Admin/Size/size';
+import Topping from '~/pages/Admin/Topping/topping';
+import Customers from '~/pages/Admin/Customer/customers';
 
 export const router = createBrowserRouter([
     {
@@ -86,15 +90,15 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'category',
-                element: <h1>Category</h1>
+                element: <Category />
             },
             {
                 path: 'size',
-                element: <h1>Size</h1>
+                element: <Size />
             },
             {
                 path: 'topping',
-                element: <h1>Topping</h1>
+                element: <Topping />
             },
             {
                 path: 'order',
@@ -102,7 +106,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'user',
-                element: <h1>User</h1>
+                element: <Customers />
             },
             {
                 path: 'staff',

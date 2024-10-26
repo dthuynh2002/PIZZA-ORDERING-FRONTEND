@@ -6,7 +6,6 @@ import {
     LineChartOutlined,
     ProductOutlined,
     MenuUnfoldOutlined,
-    HomeOutlined,
     ContainerOutlined,
     TeamOutlined,
     InboxOutlined
@@ -38,7 +37,7 @@ const SectionMenu = () => {
             id: 4,
             name: 'Quản lý size',
             path: 'size',
-            element: <HomeOutlined />
+            element: <ContainerOutlined />
         },
         {
             id: 5,
@@ -95,10 +94,10 @@ const SectionMenu = () => {
                         {overview.map((item) => (
                             <div
                                 key={item.id}
-                                className={`px-5 py-4 flex gap-4 items-center hover:bg-[#eaedf0] rounded-2xl text-2xl font-bold cursor-pointer w-full ${
+                                className={`px-5 py-4 flex gap-4 items-center hover:bg-[#efdadb] hover:text-[#d7282f] rounded-2xl text-2xl font-bold cursor-pointer w-full ${
                                     activeId === item.id
-                                        ? 'bg-[#dcf1ff] text-[#2f76a5] hover:bg-[#dcf1ff]'
-                                        : 'text-gray-500'
+                                        ? 'bg-[#efdadb] text-[#d7282f] hover:bg-[#dcf1ff]'
+                                        : 'text-gray-700'
                                 }`}
                                 onClick={() => handleClick(item.id, item.path)}
                             >
@@ -116,10 +115,10 @@ const SectionMenu = () => {
                         {application.map((item) => (
                             <div
                                 key={item.id}
-                                className={`px-5 py-4 flex gap-4 items-center rounded-2xl hover:bg-[#eaedf0] text-2xl font-bold cursor-pointer w-full ${
+                                className={`px-5 py-4 flex gap-4 items-center hover:bg-[#efdadb] hover:text-[#d7282f] rounded-2xl text-2xl font-bold cursor-pointer w-full ${
                                     activeId === item.id
-                                        ? 'bg-[#dcf1ff] text-[#2f76a5] hover:bg-[#dcf1ff]'
-                                        : 'text-gray-500'
+                                        ? 'bg-[#efdadb] text-[#d7282f] hover:bg-[#dcf1ff]'
+                                        : 'text-gray-700'
                                 }`}
                                 onClick={() => handleClick(item.id, item.path)}
                             >
@@ -137,10 +136,10 @@ const SectionMenu = () => {
                         {account.map((item) => (
                             <div
                                 key={item.id}
-                                className={`px-5 py-4 flex gap-4 items-center rounded-2xl hover:bg-[#eaedf0] text-2xl font-bold cursor-pointer w-full ${
+                                className={`px-5 py-4 flex gap-4 items-center hover:bg-[#efdadb] hover:text-[#d7282f] rounded-2xl text-2xl font-bold cursor-pointer w-full ${
                                     activeId === item.id
-                                        ? 'bg-[#dcf1ff] text-[#2f76a5] hover:bg-[#dcf1ff]'
-                                        : 'text-gray-500'
+                                        ? 'bg-[#efdadb] text-[#d7282f] hover:bg-[#dcf1ff]'
+                                        : 'text-gray-700'
                                 }`}
                                 onClick={() => handleClick(item.id, item.path)}
                             >
