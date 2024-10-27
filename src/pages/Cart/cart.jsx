@@ -1,6 +1,6 @@
 import { Badge } from 'antd';
 import { formatVND } from '~/utils/formatVND';
-import producttest from '~/assets/images/Pizza_HaiSan.jpg';
+import producttest from '~/assets/images/Pizza/Pizza_HaiSan.jpg';
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
 import { WrapperCartScroll } from '../Product/style';
 import { useNavigate } from 'react-router-dom';

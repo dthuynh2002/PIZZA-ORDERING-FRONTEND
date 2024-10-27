@@ -50,3 +50,34 @@ export const changeUserStatus = async (accessToken, id, { active }) => {
         }
     );
 };
+
+export const getAllStaffs = async (accessToken, { page, limit }) => {
+    return await axios.get(`user/all-staff?page=${page}&limit=${limit}`, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    });
+};
+
+export const createStaff = async (
+    accessToken,
+    { user_name, email, password, phone_number, role_id }
+) => {
+    return await axios.post(
+        `user/create-staff`,
+        { user_name, email, password, phone_number, role_id },
+        {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        }
+    );
+};
+
+export const getAllSupervisor = async (accessToken, { page, limit }) => {
+    return await axios.get(`user/all-admin?page=${page}&limit=${limit}`, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    });
+};

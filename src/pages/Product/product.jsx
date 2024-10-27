@@ -1,18 +1,46 @@
 import { Badge, Tabs } from 'antd';
 import { Fragment, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import producttest from '~/assets/images/Pizza_HaiSan.jpg';
+import producttest from '~/assets/images/Pizza/Pizza_HaiSan.jpg';
 import { WrapperCartScroll, WrapperMenuScroll } from './style';
 import { formatVND } from '~/utils/formatVND';
 import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
 import ProductModalDetail from './productModalDetail';
+import { allCategoriesPublic } from '~/services/categoryService';
+import { getAllProducts } from '~/services/productService';
 
 const ProductPage = () => {
+    let urlImage = import.meta.env.VITE_URL_IMAGE || 'http://localhost:3001/images/';
+
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [selectProduct, setSelectProduct] = useState(null);
+
+    // Data
+    const [categoryData, setCategoryData] = useState([]);
+    const [productData, setProductData] = useState([]);
+
+    // Filter
+    const [filteredProducts, setFilteredProducts] = useState([]);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            const resCategory = await allCategoriesPublic();
+            setCategoryData(resCategory.data);
+        };
+
+        const fetchProducts = async () => {
+            const resProduct = await getAllProducts({ page: 1, limit: 100 });
+            setProductData(resProduct.data);
+            setFilteredProducts(resProduct.data);
+        };
+        fetchCategories();
+        fetchProducts();
+    }, []);
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, []);
-    const showModal = () => {
+    const showModal = (product) => {
+        setSelectProduct(product);
         setIsModalVisible(true);
     };
     const handelCancel = () => {
@@ -23,154 +51,105 @@ const ProductPage = () => {
         navigate('/cart');
     };
 
-    // const onChange = (key) => {
-    //     // navigate(`/product/${key}`);
-    // };
+    const onChange = (key) => {
+        const filtered = productData.filter((product) => product.category_id === key);
+        setFilteredProducts(filtered);
+    };
 
-    const items = [
-        {
-            key: 'tab1',
-            label: 'Tab 1'
-        },
-        {
-            key: 'tab2',
-            label: 'Tab 2'
-        },
-        {
-            key: 'tab3',
-            label: 'Tab 3'
-        }
-    ];
+    const items = categoryData.map((item) => ({
+        key: item.id,
+        label: item.category_name
+    }));
 
     return (
         <Fragment>
             <div className='flex items-start w-full min-h-screen px-10 py-14'>
                 <div className='w-[75%] flex flex-col justify-start '>
-                    <Tabs
-                        defaultActiveKey='tab1'
-                        items={items}
-                        // onChange={onChange}
-                    />
+                    <Tabs defaultActiveKey={items[0]?.key} items={items} onChange={onChange} />
                     <WrapperMenuScroll className='pr-10'>
                         <div className='grid gap-10 mt-10 md:grid-cols-4 md:grid-rows-2 '>
-                            <Badge.Ribbon text='Discount 10%' color='red'>
-                                <div className='flex flex-col gap-4 shadow-xl'>
-                                    <img src={producttest} alt='' className='rounded-2xl' />
-                                    <div className='flex flex-col gap-6 p-10'>
-                                        <span className='text-4xl'>Pizza Hải Sản</span>
-                                        <p className='font-[400]'>
-                                            Đây là pizza rất ngon mời bạn ăn nha
-                                        </p>
-                                        <div className='flex items-center justify-between'>
-                                            <div className='flex flex-col'>
-                                                <span className='font-[400]'>Giá</span>
-                                                <span className='font-bold'>
-                                                    {formatVND(175000)}đ
-                                                </span>
+                            {filteredProducts && filteredProducts.length > 0 ? (
+                                filteredProducts.map((item) => {
+                                    return item.sale ? (
+                                        <Badge.Ribbon text='Discount 10%' color='red' key={item.id}>
+                                            <div className='flex flex-col gap-4 shadow-xl'>
+                                                <img
+                                                    src={
+                                                        item.image
+                                                            ? `${urlImage}${item.image}`
+                                                            : producttest
+                                                    }
+                                                    alt=''
+                                                    className='rounded-2xl'
+                                                />
+                                                <div className='flex flex-col gap-6 p-10'>
+                                                    <span className='text-4xl'>
+                                                        {item.name_product}
+                                                    </span>
+                                                    <p className='font-[400]'>{item.description}</p>
+                                                    <div className='flex items-center justify-between'>
+                                                        <div className='flex flex-col'>
+                                                            <span className='font-[400]'>Giá</span>
+                                                            <span className='font-bold'>
+                                                                {formatVND(item.price)}đ
+                                                            </span>
+                                                        </div>
+                                                        <div
+                                                            className='px-4 py-2 border-2 cursor-pointer rounded-xl hover:text-red-600 hover:border-red-600'
+                                                            onClick={() => showModal(item)}
+                                                        >
+                                                            Order now
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div
-                                                className='px-4 py-2 border-2 cursor-pointer rounded-xl hover:text-red-600 hover:border-red-600'
-                                                onClick={() => showModal()}
-                                            >
-                                                Order now
+                                        </Badge.Ribbon>
+                                    ) : (
+                                        <div
+                                            className='flex flex-col gap-4 shadow-xl'
+                                            key={item.id}
+                                        >
+                                            <div className='flex items-center justify-center '>
+                                                <img
+                                                    src={
+                                                        item.image
+                                                            ? `${urlImage}${item.image}`
+                                                            : 'https://placehold.co/225x155'
+                                                    }
+                                                    alt=''
+                                                    className='rounded-2xl'
+                                                />
+                                            </div>
+                                            <div className='flex flex-col gap-6 p-10 text-2xl'>
+                                                <span className='text-4xl'>
+                                                    {item.name_product}
+                                                </span>
+                                                <p className='font-[400] text-ellipsis whitespace-nowrap overflow-hidden'>
+                                                    {item.description}
+                                                </p>
+                                                <div className='flex items-center justify-between'>
+                                                    <div className='flex flex-col'>
+                                                        <span className='font-[400]'>Giá</span>
+                                                        <span className='font-bold'>
+                                                            {formatVND(item.price)}đ
+                                                        </span>
+                                                    </div>
+                                                    <div
+                                                        className='px-4 py-2 border-2 cursor-pointer rounded-xl hover:text-red-600 hover:border-red-600'
+                                                        onClick={() => showModal(item)}
+                                                    >
+                                                        Order now
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    );
+                                })
+                            ) : (
+                                <div className='w-full text-2xl font-bold text-center text-gray-500'>
+                                    Not found
                                 </div>
-                            </Badge.Ribbon>
-                            <Badge.Ribbon text='Discount 10%' color='red'>
-                                <div className='flex flex-col gap-4 shadow-xl'>
-                                    <img src={producttest} alt='' className='rounded-2xl' />
-                                    <div className='flex flex-col gap-6 p-10'>
-                                        <span className='text-4xl'>Pizza Hải Sản</span>
-                                        <p className='font-[400]'>
-                                            Đây là pizza rất ngon mời bạn ăn nha
-                                        </p>
-                                        <div className='flex items-center justify-between'>
-                                            <div className='flex flex-col'>
-                                                <span className='font-[400]'>Giá</span>
-                                                <span className='font-bold'>
-                                                    {formatVND(175000)}đ
-                                                </span>
-                                            </div>
-                                            <div className='px-4 py-2 border-2 cursor-pointer rounded-xl hover:text-red-600 hover:border-red-600'>
-                                                Order now
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Badge.Ribbon>
-                            <Badge.Ribbon text='Discount 10%' color='red'>
-                                <div className='flex flex-col gap-4 shadow-xl'>
-                                    <img src={producttest} alt='' className='rounded-2xl' />
-                                    <div className='flex flex-col gap-6 p-10'>
-                                        <span className='text-4xl'>Pizza Hải Sản</span>
-                                        <p className='font-[400]'>
-                                            Đây là pizza rất ngon mời bạn ăn nha
-                                        </p>
-                                        <div className='flex items-center justify-between'>
-                                            <div className='flex flex-col'>
-                                                <span className='font-[400]'>Giá</span>
-                                                <span className='font-bold'>
-                                                    {formatVND(175000)}đ
-                                                </span>
-                                            </div>
-                                            <div className='px-4 py-2 border-2 cursor-pointer rounded-xl hover:text-red-600 hover:border-red-600'>
-                                                Order now
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Badge.Ribbon>
-                            <Badge.Ribbon text='Discount 10%' color='red'>
-                                <div className='flex flex-col gap-4 shadow-xl'>
-                                    <img src={producttest} alt='' className='rounded-2xl' />
-                                    <div className='flex flex-col gap-6 p-10'>
-                                        <span className='text-4xl'>Pizza Hải Sản</span>
-                                        <p className='font-[400]'>
-                                            Đây là pizza rất ngon mời bạn ăn nha
-                                        </p>
-                                        <div className='flex items-center justify-between'>
-                                            <div className='flex flex-col'>
-                                                <span className='font-[400]'>Giá</span>
-                                                <span className='font-bold'>
-                                                    {formatVND(175000)}đ
-                                                </span>
-                                            </div>
-                                            <div className='px-4 py-2 border-2 cursor-pointer rounded-xl hover:text-red-600 hover:border-red-600'>
-                                                Order now
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Badge.Ribbon>
-                            <Badge.Ribbon text='Discount 10%' color='red'>
-                                <div className='flex flex-col gap-4 shadow-xl'>
-                                    <img src={producttest} alt='' className='rounded-2xl' />
-                                    <div className='flex flex-col gap-6 p-10'>
-                                        <span className='text-4xl'>Pizza Hải Sản</span>
-                                        <p className='font-[400]'>
-                                            Đây là pizza rất ngon mời bạn ăn nha
-                                        </p>
-                                        <div className='flex items-center justify-between'>
-                                            <div className='flex flex-col'>
-                                                <span className='font-[400]'>Giá</span>
-                                                <span className='font-bold'>
-                                                    {formatVND(175000)}đ
-                                                </span>
-                                            </div>
-                                            <div className='px-4 py-2 border-2 cursor-pointer rounded-xl hover:text-red-600 hover:border-red-600'>
-                                                Order now
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Badge.Ribbon>
-                        </div>
-                        <div className='flex items-center justify-center gap-4'>
-                            <button className='px-10 py-4 text-xl text-white bg-[#d7282f] w-96 rounded-xl'>
-                                Xem thêm
-                            </button>
+                            )}
                         </div>
                     </WrapperMenuScroll>
                 </div>
@@ -297,7 +276,11 @@ const ProductPage = () => {
                             Thanh toán
                         </div>
                     </div>
-                    <ProductModalDetail isVisible={isModalVisible} onCancel={handelCancel} />
+                    <ProductModalDetail
+                        isVisible={isModalVisible}
+                        onCancel={handelCancel}
+                        product={selectProduct}
+                    />
                 </div>
             </div>
         </Fragment>

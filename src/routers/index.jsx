@@ -18,6 +18,9 @@ import Category from '~/pages/Admin/Category/category';
 import Size from '~/pages/Admin/Size/size';
 import Topping from '~/pages/Admin/Topping/topping';
 import Customers from '~/pages/Admin/Customer/customers';
+import Staffs from '~/pages/Admin/Staff/staffs';
+import Supervisor from '~/pages/Admin/Supervisor/supervisor';
+import Products from '~/pages/Admin/Product/products';
 
 export const router = createBrowserRouter([
     {
@@ -86,7 +89,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'products',
-                element: <h1>Product </h1>
+                element: <Products />
             },
             {
                 path: 'category',
@@ -110,11 +113,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'staff',
-                element: <h1>Staff</h1>
+                element: <Staffs />
             },
             {
                 path: 'supervisor',
-                element: <h1>Supervisor</h1>
+                element: <Supervisor />
             },
             {
                 path: 'admin-profile',

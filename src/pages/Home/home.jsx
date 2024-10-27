@@ -3,7 +3,7 @@ import { Fragment, useEffect, useState } from 'react';
 import slide1 from '~/assets/images/slide1.jpg';
 import slide2 from '~/assets/images/slide2.jpg';
 import slide3 from '~/assets/images/slide3.jpg';
-import producttest from '~/assets/images/Pizza_HaiSan.jpg';
+import producttest from '~/assets/images/Pizza/Pizza_HaiSan.jpg';
 import { useNavigate } from 'react-router-dom';
 import { formatVND } from '~/utils/formatVND';
 import ProductModalDetail from '../Product/productModalDetail';

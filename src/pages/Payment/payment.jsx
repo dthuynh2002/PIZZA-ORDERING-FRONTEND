@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Badge, Form, Input, Radio, Space } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { formatVND } from '~/utils/formatVND';
-import producttest from '~/assets/images/Pizza_HaiSan.jpg';
+import producttest from '~/assets/images/Pizza/Pizza_HaiSan.jpg';
 
 const Payment = () => {
     const [form] = Form.useForm();

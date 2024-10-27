@@ -11,6 +11,8 @@ import { formatVND } from '~/utils/formatVND';
 const ProductModalDetail = ({ isVisible, onCancel, product }) => {
     const token = useSelector((state) => state.auth.auth.access_token);
 
+    let urlImage = import.meta.env.VITE_URL_IMAGE || 'http://localhost:3001/images/';
+
     const [productName, setProductName] = useState('');
     const [productPrice, setProductPrice] = useState('');
     const [productDescription, setProductDescription] = useState('');
@@ -91,7 +93,11 @@ const ProductModalDetail = ({ isVisible, onCancel, product }) => {
                 <div className='flex gap-5'>
                     <div className='flex 1'>
                         <img
-                            src={productImage ? productImage : 'https://placehold.co/380'}
+                            src={
+                                productImage
+                                    ? `${urlImage}${product.image}`
+                                    : 'https://placehold.co/380'
+                            }
                             alt=''
                             style={{ width: '380px', height: '380px' }}
                         />

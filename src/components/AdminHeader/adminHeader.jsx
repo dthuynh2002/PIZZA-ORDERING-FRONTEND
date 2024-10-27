@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authActions } from '~/redux/slice/authSlice';
 import logo from '~/assets/images/logo.png';
 import defaultAvatar from '~/assets/images/avt.jpg';
+import { removeToken } from '~/utils/token';
 
 const AdminHeader = () => {
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -23,6 +24,7 @@ const AdminHeader = () => {
 
     const backHome = () => {
         navigate('/');
+        removeToken('activeId');
     };
 
     const gotoProfile = () => {
