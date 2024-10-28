@@ -6,10 +6,12 @@ import { authActions } from '~/redux/slice/authSlice';
 import logo from '~/assets/images/logo.png';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import defaultAvatar from '~/assets/images/avt.jpg';
+import { cartsCountSelector } from '~/redux/selector/cartSelector';
 
 const Header = () => {
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
     const user = useSelector((state) => state.user.user);
+    const cartsCount = useSelector(cartsCountSelector);
 
     let urlImage = import.meta.env.VITE_URL_IMAGE || 'http://localhost:3001/images/';
 
@@ -56,7 +58,7 @@ const Header = () => {
                     <div className='flex items-center gap-10'>
                         {isAuthenticated ? (
                             <Fragment>
-                                <Badge count={5} size='small'>
+                                <Badge count={cartsCount} size='small'>
                                     <ShoppingCartOutlined
                                         style={{ fontSize: '30px' }}
                                         onClick={gotoCart}

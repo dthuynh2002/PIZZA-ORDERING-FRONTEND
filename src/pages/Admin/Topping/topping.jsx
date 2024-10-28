@@ -171,7 +171,7 @@ const Topping = () => {
     return (
         <div className='flex flex-col w-full'>
             <div className='flex items-center justify-between my-10'>
-                <h1 className='text-4xl font-bold '>Danh sách danh mục</h1>
+                <h1 className='text-4xl font-bold '>Danh sách topping</h1>
                 <button
                     className='px-6 py-5 mr-2 text-xl text-white bg-green-600 rounded-2xl'
                     onClick={showModalCreate}

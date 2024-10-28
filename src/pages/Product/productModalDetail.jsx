@@ -1,15 +1,18 @@
 /* eslint-disable react/prop-types */
-import { Badge, Modal } from 'antd';
+import { Modal } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useEffect, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { getAllProductSizesByProduct } from '~/services/productService';
 import { getSizeById } from '~/services/sizeService';
 import { formatVND } from '~/utils/formatVND';
+import { cartActions } from '~/redux/slice/cartSlice';
 
 const ProductModalDetail = ({ isVisible, onCancel, product }) => {
     const token = useSelector((state) => state.auth.auth.access_token);
+
+    const dispatch = useDispatch();
 
     let urlImage = import.meta.env.VITE_URL_IMAGE || 'http://localhost:3001/images/';
 
@@ -18,9 +21,11 @@ const ProductModalDetail = ({ isVisible, onCancel, product }) => {
     const [productDescription, setProductDescription] = useState('');
     const [productSale, setProductSale] = useState('');
     const [productImage, setProductImage] = useState('');
-
+    const [productNotes, setProductNotes] = useState('');
     const [productSizeData, setProductSizeData] = useState([]);
     const [sizeDataById, setSizeDataById] = useState([]);
+    const [activeSize, setActiveSize] = useState(null);
+    const [finalPrice, setFinalPrice] = useState(0);
 
     const productData = useMemo(() => product, [product]);
 
@@ -39,7 +44,6 @@ const ProductModalDetail = ({ isVisible, onCancel, product }) => {
             if (productData && productData.id) {
                 const response = await getAllProductSizesByProduct(productData.id);
                 if (response.status === true) {
-                    // Sắp xếp mảng productSizeData theo giá tăng dần
                     const sortedSizes = response.data.sort((a, b) => a.price - b.price);
                     setProductSizeData(sortedSizes);
 
@@ -67,11 +71,36 @@ const ProductModalDetail = ({ isVisible, onCancel, product }) => {
         fetchProductSize();
     }, [productData, token]);
 
-    const handleOnClick = () => {
-        toast.success('Thêm sản phẩm thành công!');
-    };
+    useEffect(() => {
+        if (activeSize) {
+            const priceAfterSale = productPrice - (productPrice * productSale) / 100;
+            setFinalPrice(priceAfterSale + activeSize.price);
+        } else {
+            setFinalPrice(productPrice - (productPrice * productSale) / 100);
+        }
+    }, [activeSize, productPrice, productSale]);
 
-    const [activeSize, setActiveSize] = useState(null);
+    const handleOnClick = () => {
+        if (activeSize) {
+            const newCartItem = {
+                id: productData.id,
+                product: {
+                    id: productData.id,
+                    name: productName,
+                    price: productPrice,
+                    description: productDescription,
+                    sale: productSale,
+                    image: productImage,
+                    notes: productNotes
+                },
+                size: activeSize,
+                quantity: 1
+            };
+            dispatch(cartActions.addToCart(newCartItem));
+        } else {
+            toast.warning('Vui lòng chọn kích cỡ trước khi thêm vào giỏ hàng!');
+        }
+    };
 
     const handleClickSize = (size) => {
         setActiveSize(size);
@@ -109,13 +138,10 @@ const ProductModalDetail = ({ isVisible, onCancel, product }) => {
                         </div>
                         <div className='flex flex-col gap-5 py-5 text-4xl bg-white rounded-xl'>
                             <div className='flex items-center gap-10 px-5'>
-                                <span className='font-[500]'>{formatVND(productPrice)}</span>
-                                <span className='text-2xl text-gray-500 line-through'>
-                                    {formatVND(10000)}
-                                </span>
+                                <span className='font-[500]'>{formatVND(finalPrice)}</span>
                                 {productSale ? (
                                     <span className='text-xl text-gray-500 line-through'>
-                                        {formatVND(productPrice * productSale)}
+                                        {formatVND(productPrice)}
                                     </span>
                                 ) : null}
                             </div>
@@ -125,39 +151,41 @@ const ProductModalDetail = ({ isVisible, onCancel, product }) => {
                             <div className='flex items-center gap-10'>
                                 {productSizeData &&
                                     productSizeData.map((size, index) => (
-                                        <Badge.Ribbon text='Sale 10%' color='red' key={size.id}>
-                                            <div className='py-8'>
-                                                <div
-                                                    className={`flex flex-col items-center justify-center h-24 border-2 rounded-lg cursor-pointer w-52 ${
-                                                        activeSize?.id === size.id
-                                                            ? 'bg-red-600 text-white'
-                                                            : 'border-red-600'
-                                                    }`}
-                                                    onClick={() => handleClickSize(size)}
-                                                >
-                                                    {sizeDataById[index] && (
-                                                        <span>{sizeDataById[index].size_name}</span>
-                                                    )}
-                                                    {size.price > 0 && (
-                                                        <span
-                                                            className={`${
-                                                                activeSize?.id === size.id
-                                                                    ? 'text-white'
-                                                                    : 'text-red-600'
-                                                            }`}
-                                                        >
-                                                            + {formatVND(size.price)}
-                                                        </span>
-                                                    )}
-                                                </div>
+                                        <div className='py-8' key={size.id}>
+                                            <div
+                                                className={`flex flex-col items-center justify-center h-24 border-2 rounded-lg cursor-pointer w-52 ${
+                                                    activeSize?.id === size.id
+                                                        ? 'bg-red-600 text-white'
+                                                        : 'border-red-600'
+                                                }`}
+                                                onClick={() => handleClickSize(size)}
+                                            >
+                                                {sizeDataById[index] && (
+                                                    <span>{sizeDataById[index].size_name}</span>
+                                                )}
+                                                {size.price > 0 && (
+                                                    <span
+                                                        className={`${
+                                                            activeSize?.id === size.id
+                                                                ? 'text-white'
+                                                                : 'text-red-600'
+                                                        }`}
+                                                    >
+                                                        + {formatVND(size.price)}
+                                                    </span>
+                                                )}
                                             </div>
-                                        </Badge.Ribbon>
+                                        </div>
                                     ))}
                             </div>
                         </div>
                         <div>
                             <span className='text-red-600 font-[500] uppercase'>Ghi chú</span>
-                            <TextArea rows={4} />
+                            <TextArea
+                                rows={4}
+                                value={productNotes}
+                                onChange={(e) => setProductNotes(e.target.value)}
+                            />
                         </div>
                         <div
                             className='py-3 text-center text-white bg-black rounded-lg cursor-pointer hover:bg-red-700'

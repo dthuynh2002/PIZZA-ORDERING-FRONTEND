@@ -36,7 +36,7 @@ const ToppingModalDetail = ({ isVisible, onCancel, topping }) => {
     };
     return (
         <Modal visible={isVisible} onCancel={onCancel} footer={null} maskClosable={true}>
-            <div className='mb-10 text-4xl font-semibold'>Chi tiết danh mục</div>
+            <div className='mb-10 text-4xl font-semibold'>Chi tiết topping</div>
             {topping && (
                 <div className='flex flex-col items-start justify-center gap-5'>
                     <div className='flex flex-col w-full gap-4 text-gray-800'>

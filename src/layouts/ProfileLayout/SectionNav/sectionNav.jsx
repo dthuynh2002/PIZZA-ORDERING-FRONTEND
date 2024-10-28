@@ -16,11 +16,6 @@ const SectionNav = () => {
         },
         {
             id: 3,
-            name: 'Theo dõi đơn hàng',
-            path: 'tracking'
-        },
-        {
-            id: 4,
             name: 'Lịch sử đơn hàng',
             path: 'history'
         }

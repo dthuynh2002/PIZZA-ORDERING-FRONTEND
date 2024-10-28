@@ -28,7 +28,7 @@ export const getAllToppings = async (accessToken, { page, limit }) => {
     });
 };
 
-export const allcategoryPublic = async () => {
+export const allToppingsPublic = async () => {
     return await axios.get('topping/get');
 };
 

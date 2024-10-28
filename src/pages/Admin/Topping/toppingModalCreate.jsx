@@ -44,7 +44,7 @@ const ToppingModalCreate = ({ isVisible, onCancel }) => {
 
     return (
         <Modal visible={isVisible} onCancel={onCancel} footer={null} maskClosable={true}>
-            <div className='mb-10 text-4xl font-semibold'>Tạo danh mục mới</div>
+            <div className='mb-10 text-4xl font-semibold'>Tạo topping mới</div>
             <div className='flex flex-col items-start justify-center gap-5'>
                 <div className='flex flex-col w-full gap-4 text-gray-800'>
                     <label className='text-2xl font-bold'>Tên danh mục:</label>
@@ -71,10 +71,6 @@ const ToppingModalCreate = ({ isVisible, onCancel }) => {
                         disabled={!topping_name.length || !description.length}
                         type='primary'
                         className='h-16 text-2xl text-right'
-                        style={{
-                            fontFamily: 'LXGW WenKai TC',
-                            cursive: 'LXGW Wen'
-                        }}
                     >
                         Xác nhận
                     </Button>

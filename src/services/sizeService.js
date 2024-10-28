@@ -28,7 +28,7 @@ export const getAllSizes = async (accessToken, { page, limit }) => {
     });
 };
 
-export const allcategoryPublic = async () => {
+export const allSizesPublic = async () => {
     return await axios.get('size/get');
 };
 

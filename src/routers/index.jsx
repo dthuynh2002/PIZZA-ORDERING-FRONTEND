@@ -13,7 +13,6 @@ import AboutUs from '~/pages/AboutUs/aboutUs';
 import Cart from '~/pages/Cart/cart';
 import AdminLayout from '~/layouts/AdminLayout';
 import Payment from '~/pages/Payment/payment';
-import TrackingPage from '~/pages/Auth/Tracking/tracking';
 import Category from '~/pages/Admin/Category/category';
 import Size from '~/pages/Admin/Size/size';
 import Topping from '~/pages/Admin/Topping/topping';
@@ -72,10 +71,6 @@ export const router = createBrowserRouter([
             {
                 path: 'history',
                 element: <OrderHistoryPage />
-            },
-            {
-                path: 'tracking',
-                element: <TrackingPage />
             }
         ]
     },

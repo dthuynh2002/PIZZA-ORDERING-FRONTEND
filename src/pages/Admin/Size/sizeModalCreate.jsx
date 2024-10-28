@@ -44,7 +44,7 @@ const SizeModalCreate = ({ isVisible, onCancel }) => {
 
     return (
         <Modal visible={isVisible} onCancel={onCancel} footer={null} maskClosable={true}>
-            <div className='mb-10 text-4xl font-semibold'>Tạo danh mục mới</div>
+            <div className='mb-10 text-4xl font-semibold'>Tạo size mới</div>
             <div className='flex flex-col items-start justify-center gap-5'>
                 <div className='flex flex-col w-full gap-4 text-gray-800'>
                     <label className='text-2xl font-bold'>Tên danh mục:</label>
