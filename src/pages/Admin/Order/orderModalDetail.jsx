@@ -8,7 +8,7 @@ import { getProductById } from '~/services/productService';
 import { getSizeById } from '~/services/sizeService';
 import { formatVND } from '~/utils/formatVND';
 
-const OrderHistoryModal = ({ isVisible, onCancel, order }) => {
+const OrderModalDetail = ({ isVisible, onCancel, order }) => {
     const token = useSelector((state) => state.auth.auth.access_token);
 
     const [orderDate, setOrderDate] = useState('');
@@ -50,7 +50,7 @@ const OrderHistoryModal = ({ isVisible, onCancel, order }) => {
 
     useEffect(() => {
         const fetchProductAndSizeData = async () => {
-            if (!token || !orderData.detail) return;
+            if (!token || !orderData) return;
 
             const productDataArray = [];
             const sizeDataArray = [];
@@ -95,65 +95,85 @@ const OrderHistoryModal = ({ isVisible, onCancel, order }) => {
             <div className='mb-10 text-4xl font-semibold'>Chi tiết hóa đơn</div>
 
             {order && (
-                <div className='flex gap-10 px-10'>
-                    <div className='w-[60%] flex flex-col items-start gap-5'>
-                        <div className='flex flex-col w-full gap-4 text-gray-800'>
-                            <label className='text-2xl font-bold'>Code:</label>
-                            <Input size='large' value={orderCode} />
+                <div className='flex flex-col gap-10'>
+                    <div className='flex gap-10'>
+                        <div className='w-[60%] flex flex-col items-start gap-5'>
+                            <div className='flex flex-col items-start justify-center gap-5 p-10 bg-[#f4f6f8] shadow-lg rounded-xl w-full'>
+                                <div className='flex flex-col w-full gap-4 text-gray-800'>
+                                    <label className='text-2xl font-bold'>Code:</label>
+                                    <Input size='large' value={orderCode} />
+                                </div>
+
+                                <div className='flex flex-col w-full gap-4 text-gray-800'>
+                                    <label className='text-2xl font-bold'>Ngày đặt hàng:</label>
+                                    <Input size='large' value={orderDate} />
+                                </div>
+                                <div className='flex flex-col w-full gap-4 text-gray-800'>
+                                    <label className='text-2xl font-bold'>Tên người đặt:</label>
+                                    <Input size='large' value={name} />
+                                </div>
+                                <div className='flex flex-col w-full gap-4 text-gray-800'>
+                                    <label className='text-2xl font-bold'>Email:</label>
+                                    <Input size='large' value={email} />
+                                </div>
+                                <div className='flex flex-col w-full gap-4 text-gray-800'>
+                                    <label className='text-2xl font-bold'>Số điện thoại:</label>
+                                    <Input size='large' value={phone} />
+                                </div>
+                                <div className='flex flex-col w-full gap-4 text-gray-800'>
+                                    <label className='text-2xl font-bold'>Ghi chú:</label>
+                                    <TextArea
+                                        rows={4}
+                                        value={notes}
+                                        onChange={(e) => setNotes(e.target.value)}
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        <div className='flex flex-col w-full gap-4 text-gray-800'>
-                            <label className='text-2xl font-bold'>Tổng tiền hóa đơn:</label>
-                            <Input size='large' value={totalPrice} />
-                        </div>
-                        <div className='flex flex-col w-full gap-4 text-gray-800'>
-                            <label className='text-2xl font-bold'>Tổng số lượng:</label>
-                            <Input size='large' value={totalQuantity} />
-                        </div>
-                        <div className='flex flex-col w-full gap-4 text-gray-800'>
-                            <label className='text-2xl font-bold'>Trạng thái đơn hàng:</label>
-                            <Input size='large' value={orderStatus} />
-                        </div>
-                        <div className='flex flex-col w-full gap-4 text-gray-800'>
-                            <label className='text-2xl font-bold'>Trạng thái thanh toán:</label>
-                            <Input size='large' value={paymentStatus} />
-                        </div>
-                        <div className='flex flex-col w-full gap-4 text-gray-800'>
-                            <label className='text-2xl font-bold'>Phương thức thanh toán:</label>
-                            <Input size='large' value={paymentMethod} />
-                        </div>
-                        <div className='flex flex-col w-full gap-4 text-gray-800'>
-                            <label className='text-2xl font-bold'>Phương thức vận chuyển:</label>
-                            <Input size='large' value={deliveryMethod} />
-                        </div>
-                        <div className='flex flex-col w-full gap-4 text-gray-800'>
-                            <label className='text-2xl font-bold'>Ngày đặt hàng:</label>
-                            <Input size='large' value={orderDate} />
-                        </div>
-                        <div className='flex flex-col w-full gap-4 text-gray-800'>
-                            <label className='text-2xl font-bold'>Tên người đặt:</label>
-                            <Input size='large' value={name} />
-                        </div>
-                        <div className='flex flex-col w-full gap-4 text-gray-800'>
-                            <label className='text-2xl font-bold'>Email:</label>
-                            <Input size='large' value={email} />
-                        </div>
-                        <div className='flex flex-col w-full gap-4 text-gray-800'>
-                            <label className='text-2xl font-bold'>Số điện thoại:</label>
-                            <Input size='large' value={phone} />
-                        </div>
-                        <div className='flex flex-col w-full gap-4 text-gray-800'>
-                            <label className='text-2xl font-bold'>Ghi chú:</label>
-                            <TextArea
-                                rows={4}
-                                value={notes}
-                                onChange={(e) => setNotes(e.target.value)}
-                            />
+                        <div className='w-[40%]'>
+                            <div className='flex flex-col items-start justify-center gap-5 p-10 bg-[#f4f6f8] shadow-lg rounded-xl w-full'>
+                                <div className='flex flex-col w-full gap-4 text-gray-800'>
+                                    <label className='text-2xl font-bold'>Tổng số lượng:</label>
+                                    <Input size='large' value={totalQuantity} />
+                                </div>
+                                <div className='flex flex-col w-full gap-4 text-gray-800'>
+                                    <label className='text-2xl font-bold'>Tổng tiền hóa đơn:</label>
+                                    <Input size='large' value={formatVND(Number(totalPrice))} />
+                                </div>
+                                <div className='flex flex-col w-full gap-4 text-gray-800'>
+                                    <label className='text-2xl font-bold'>
+                                        Trạng thái đơn hàng:
+                                    </label>
+                                    <Input size='large' value={orderStatus} />
+                                </div>
+                                <div className='flex flex-col w-full gap-4 text-gray-800'>
+                                    <label className='text-2xl font-bold'>
+                                        Trạng thái thanh toán:
+                                    </label>
+                                    <Input size='large' value={paymentStatus} />
+                                </div>
+                                <div className='flex flex-col w-full gap-4 text-gray-800'>
+                                    <label className='text-2xl font-bold'>
+                                        Phương thức thanh toán:
+                                    </label>
+                                    <Input size='large' value={paymentMethod} />
+                                </div>
+                                <div className='flex flex-col w-full gap-4 text-gray-800'>
+                                    <label className='text-2xl font-bold'>
+                                        Phương thức vận chuyển:
+                                    </label>
+                                    <Input size='large' value={deliveryMethod} />
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className='w-[40%]'>
+                    <div className=''>
                         {orderData.detail &&
                             orderData.detail.map((item, index) => (
-                                <div key={index}>
+                                <div
+                                    key={index}
+                                    className='flex flex-col items-start justify-center gap-5 p-10 bg-[#f4f6f8] shadow-lg rounded-xl mb-10'
+                                >
                                     <div className='flex flex-col w-full gap-4 text-gray-800'>
                                         <label className='text-2xl font-bold'>Số lượng:</label>
                                         <Input size='large' value={item.quantity} />
@@ -162,12 +182,17 @@ const OrderHistoryModal = ({ isVisible, onCancel, order }) => {
                                         <label className='text-2xl font-bold'>Giá:</label>
                                         <Input
                                             size='large'
-                                            value={item.price ? formatVND(item.price) : '0 VND'}
+                                            value={
+                                                item.price ? formatVND(Number(item.price)) : '0 VND'
+                                            }
                                         />
                                     </div>
                                     <div className='flex flex-col w-full gap-4 text-gray-800'>
                                         <label className='text-2xl font-bold'>Tổng tiền:</label>
-                                        <Input size='large' value={item.total_price} />
+                                        <Input
+                                            size='large'
+                                            value={formatVND(Number(item.total_price))}
+                                        />
                                     </div>
                                     <div className='flex flex-col w-full gap-4 text-gray-800'>
                                         <label className='text-2xl font-bold'>Tên sản phẩm:</label>
@@ -192,4 +217,4 @@ const OrderHistoryModal = ({ isVisible, onCancel, order }) => {
     );
 };
 
-export default OrderHistoryModal;
+export default OrderModalDetail;

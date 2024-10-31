@@ -20,6 +20,8 @@ import Customers from '~/pages/Admin/Customer/customers';
 import Staffs from '~/pages/Admin/Staff/staffs';
 import Supervisor from '~/pages/Admin/Supervisor/supervisor';
 import Products from '~/pages/Admin/Product/products';
+import Orders from '~/pages/Admin/Order/orders';
+import Dashboard from '~/pages/Admin/Dashboard/Dashboard';
 
 export const router = createBrowserRouter([
     {
@@ -80,7 +82,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: 'dashboard',
-                element: <h1>Dashboard</h1>
+                element: <Dashboard />
             },
             {
                 path: 'products',
@@ -100,7 +102,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'order',
-                element: <h1>Order</h1>
+                element: <Orders />
             },
             {
                 path: 'user',

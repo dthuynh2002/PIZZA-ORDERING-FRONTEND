@@ -49,6 +49,15 @@ export const createProduct = async (accessToken, formData) => {
     });
 };
 
+export const updateProduct = async (accessToken, productId, formData) => {
+    return await axios.put(`product/update/${productId}`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${accessToken}`
+        }
+    });
+};
+
 // Product Size
 export const getAllProductSizesByProduct = async (productId) => {
     return await axios.get(`/product-size/getAll?product_id=${productId}`);
@@ -62,9 +71,29 @@ export const createProductSize = async (accessToken, data) => {
     });
 };
 
+export const deleteProductSize = async (accessToken, productSizeId) => {
+    return await axios.delete(`/product-size/delete/${productSizeId}`, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    });
+};
+
 // Product topping
 export const createProductTopping = async (accessToken, data) => {
     return await axios.post('/product-topping/create', data, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    });
+};
+
+export const getAllProductToppingsByProduct = async (productId) => {
+    return await axios.get(`/product-topping/get-all?product_id=${productId}`);
+};
+
+export const deleteProductTopping = async (accessToken, productToppingId) => {
+    return await axios.delete(`/product-topping/delete/${productToppingId}`, {
         headers: {
             Authorization: `Bearer ${accessToken}`
         }

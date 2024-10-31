@@ -14,6 +14,9 @@ const HomePage = () => {
 
     const [selectProduct, setSelectProduct] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
+
+    let urlImage = import.meta.env.VITE_URL_IMAGE || 'http://localhost:3001/images/';
+
     const showModal = (product) => {
         setSelectProduct(product);
         setIsModalVisible(true);
@@ -74,7 +77,15 @@ const HomePage = () => {
                             return item.sale ? (
                                 <Badge.Ribbon text='Discount 10%' color='red' key={item.id}>
                                     <div className='flex flex-col gap-4 shadow-xl'>
-                                        <img src={producttest} alt='' className='rounded-2xl' />
+                                        <img
+                                            src={
+                                                item.image
+                                                    ? `${urlImage}${item.image}`
+                                                    : producttest
+                                            }
+                                            alt=''
+                                            className='rounded-2xl'
+                                        />
                                         <div className='flex flex-col gap-6 p-10'>
                                             <span className='text-4xl'>{item.name_product}</span>
                                             <p className='font-[400]'>{item.description}</p>
@@ -89,7 +100,7 @@ const HomePage = () => {
                                                     className='px-4 py-2 border-2 cursor-pointer rounded-xl hover:text-red-600 hover:border-red-600'
                                                     onClick={() => showModal(item)}
                                                 >
-                                                    Order now
+                                                    Chọn mua
                                                 </div>
                                             </div>
                                         </div>
@@ -101,7 +112,7 @@ const HomePage = () => {
                                         <img
                                             src={
                                                 item.image
-                                                    ? item.image
+                                                    ? `${urlImage}${item.image}`
                                                     : 'https://placehold.co/225x155'
                                             }
                                             alt=''
@@ -124,7 +135,7 @@ const HomePage = () => {
                                                 className='px-4 py-2 border-2 cursor-pointer rounded-xl hover:text-red-600 hover:border-red-600'
                                                 onClick={() => showModal(item)}
                                             >
-                                                Order now
+                                                Chọn mua
                                             </div>
                                         </div>
                                     </div>

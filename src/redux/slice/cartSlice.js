@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import { getCartsFromLocal, setCartToLocal } from '~/utils/token';
+import { getCartsFromLocal, removeCartsFromLocal, setCartToLocal } from '~/utils/token';
 
 const initialState = {
     carts: getCartsFromLocal('carts') || []
@@ -15,7 +15,7 @@ const cartSlice = createSlice({
             const newItem = action.payload;
 
             const index = state.carts.findIndex(
-                (item) => item.id === newItem.id && item.size === newItem.size
+                (item) => item.id === newItem.id && item.size.id === newItem.size.id
             );
 
             if (index >= 0) {
@@ -41,6 +41,10 @@ const cartSlice = createSlice({
                 (item) => !(item.id === id && item.size.id === sizeId)
             );
             setCartToLocal(state.carts);
+        },
+        clearCartItems: (state) => {
+            state.carts = [];
+            removeCartsFromLocal();
         }
     }
 });

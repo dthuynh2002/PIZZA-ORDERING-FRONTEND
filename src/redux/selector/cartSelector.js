@@ -15,7 +15,8 @@ export const cartTotalSelector = createSelector(cartsSelector, (carts) =>
 // Selector to calculate total discount
 export const cartDiscountTotalSelector = createSelector(cartsSelector, (carts) =>
     carts.reduce((totalDiscount, item) => {
-        const discountAmount = ((item.product.price * item.product.sale) / 100) * item.quantity;
+        const discountAmount =
+            (((item.product.price + item.size.price) * item.product.sale) / 100) * item.quantity;
         return totalDiscount + discountAmount;
     }, 0)
 );

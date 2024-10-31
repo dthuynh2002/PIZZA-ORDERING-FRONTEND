@@ -58,7 +58,7 @@ const OrderHistoryPage = () => {
             {
                 Header: 'Tổng tiền',
                 accessor: 'total_price',
-                Cell: ({ value }) => <span>{formatVND(value)}</span>
+                Cell: ({ value }) => formatVND(Number(value))
             },
             {
                 Header: 'Trạng thái đơn hàng',

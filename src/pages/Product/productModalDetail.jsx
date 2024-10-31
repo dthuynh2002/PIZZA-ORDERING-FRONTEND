@@ -49,7 +49,7 @@ const ProductModalDetail = ({ isVisible, onCancel, product }) => {
 
                     try {
                         const sizePromises = sortedSizes.map(async (item) => {
-                            const dataSizeById = await getSizeById(token, item.size_id);
+                            const dataSizeById = await getSizeById(item.size_id);
                             if (dataSizeById.status === true) {
                                 return dataSizeById.data;
                             } else {
@@ -73,8 +73,11 @@ const ProductModalDetail = ({ isVisible, onCancel, product }) => {
 
     useEffect(() => {
         if (activeSize) {
-            const priceAfterSale = productPrice - (productPrice * productSale) / 100;
-            setFinalPrice(priceAfterSale + activeSize.price);
+            const priceAfterSale =
+                productPrice +
+                activeSize.price -
+                ((productPrice + activeSize.price) * productSale) / 100;
+            setFinalPrice(priceAfterSale);
         } else {
             setFinalPrice(productPrice - (productPrice * productSale) / 100);
         }

@@ -15,10 +15,10 @@ export const setCartToLocal = (value) => {
     localStorage.setItem('carts', JSON.stringify(value));
 };
 
-export const getCartsFromLocal = (carts) => {
-    return JSON.parse(localStorage.getItem(carts));
+export const getCartsFromLocal = () => {
+    return JSON.parse(localStorage.getItem('carts'));
 };
 
-export const removeCartsFromLocal = (carts) => {
-    localStorage.removeItem(carts);
+export const removeCartsFromLocal = () => {
+    localStorage.removeItem('carts');
 };

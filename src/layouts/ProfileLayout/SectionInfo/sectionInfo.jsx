@@ -37,7 +37,7 @@ const SectionInfo = () => {
             </div>
             <div className='flex items-center justify-between px-10'>
                 <div className=''>
-                    <div className='mt-12 text-4xl font-bold'>{user.name}</div>
+                    <div className='mt-12 text-4xl font-bold'>{user.user_name}</div>
                     <div className='flex items-center gap-10 mt-5 mb-2 text-2xl text-gray-500'>
                         <span className='flex gap-3'>
                             <MailOutlined />
