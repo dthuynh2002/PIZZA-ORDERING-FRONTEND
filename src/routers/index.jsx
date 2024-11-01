@@ -21,7 +21,7 @@ import Staffs from '~/pages/Admin/Staff/staffs';
 import Supervisor from '~/pages/Admin/Supervisor/supervisor';
 import Products from '~/pages/Admin/Product/products';
 import Orders from '~/pages/Admin/Order/orders';
-import Dashboard from '~/pages/Admin/Dashboard/Dashboard';
+import ProtectedRoute from './protectedRoute';
 
 export const router = createBrowserRouter([
     {
@@ -78,12 +78,17 @@ export const router = createBrowserRouter([
     },
     {
         path: '/',
-        element: <AdminLayout />,
+        element: (
+            <ProtectedRoute
+                roleRequired={[
+                    '449cbc4f-1901-4724-8881-c5fc3b6253e1', // Admin
+                    '945a8db9-dc54-4442-9f98-49c6c380f130' // Staff
+                ]}
+            >
+                <AdminLayout />
+            </ProtectedRoute>
+        ),
         children: [
-            {
-                path: 'dashboard',
-                element: <Dashboard />
-            },
             {
                 path: 'products',
                 element: <Products />

@@ -32,7 +32,7 @@ const Header = () => {
         navigate('/profile');
     };
     const gotoAdmin = () => {
-        navigate('/dashboard');
+        navigate('/products');
     };
 
     const gotoCart = () => {

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Input, Modal } from 'antd';
+import { Badge, Input, Modal } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -10,6 +10,8 @@ import { formatVND } from '~/utils/formatVND';
 
 const OrderModalDetail = ({ isVisible, onCancel, order }) => {
     const token = useSelector((state) => state.auth.auth.access_token);
+
+    let urlImage = import.meta.env.VITE_URL_IMAGE || 'http://localhost:3001/images/';
 
     const [orderDate, setOrderDate] = useState('');
     const [orderCode, setOrderCode] = useState('');
@@ -59,6 +61,7 @@ const OrderModalDetail = ({ isVisible, onCancel, order }) => {
                 try {
                     // Fetch product data
                     const productRes = await getProductById(token, item.product_id);
+
                     if (productRes.status === true) {
                         productDataArray.push(productRes.data);
                     } else {
@@ -84,15 +87,17 @@ const OrderModalDetail = ({ isVisible, onCancel, order }) => {
         fetchProductAndSizeData();
     }, [token, orderData]);
 
+    console.log(productData);
+
     return (
         <Modal
             visible={isVisible}
             onCancel={onCancel}
             footer={null}
-            width={1100}
+            width={900}
             maskClosable={true}
         >
-            <div className='mb-10 text-4xl font-semibold'>Chi tiết hóa đơn</div>
+            <div className='mb-10 text-4xl font-semibold text-center'>Chi tiết hóa đơn</div>
 
             {order && (
                 <div className='flex flex-col gap-10'>
@@ -101,30 +106,31 @@ const OrderModalDetail = ({ isVisible, onCancel, order }) => {
                             <div className='flex flex-col items-start justify-center gap-5 p-10 bg-[#f4f6f8] shadow-lg rounded-xl w-full'>
                                 <div className='flex flex-col w-full gap-4 text-gray-800'>
                                     <label className='text-2xl font-bold'>Code:</label>
-                                    <Input size='large' value={orderCode} />
+                                    <Input size='large' disabled value={orderCode} />
                                 </div>
 
                                 <div className='flex flex-col w-full gap-4 text-gray-800'>
                                     <label className='text-2xl font-bold'>Ngày đặt hàng:</label>
-                                    <Input size='large' value={orderDate} />
+                                    <Input size='large' disabled value={orderDate} />
                                 </div>
                                 <div className='flex flex-col w-full gap-4 text-gray-800'>
                                     <label className='text-2xl font-bold'>Tên người đặt:</label>
-                                    <Input size='large' value={name} />
+                                    <Input size='large' disabled value={name} />
                                 </div>
                                 <div className='flex flex-col w-full gap-4 text-gray-800'>
                                     <label className='text-2xl font-bold'>Email:</label>
-                                    <Input size='large' value={email} />
+                                    <Input size='large' disabled value={email} />
                                 </div>
                                 <div className='flex flex-col w-full gap-4 text-gray-800'>
                                     <label className='text-2xl font-bold'>Số điện thoại:</label>
-                                    <Input size='large' value={phone} />
+                                    <Input size='large' disabled value={phone} />
                                 </div>
                                 <div className='flex flex-col w-full gap-4 text-gray-800'>
                                     <label className='text-2xl font-bold'>Ghi chú:</label>
                                     <TextArea
                                         rows={4}
                                         value={notes}
+                                        disabled
                                         onChange={(e) => setNotes(e.target.value)}
                                     />
                                 </div>
@@ -134,35 +140,39 @@ const OrderModalDetail = ({ isVisible, onCancel, order }) => {
                             <div className='flex flex-col items-start justify-center gap-5 p-10 bg-[#f4f6f8] shadow-lg rounded-xl w-full'>
                                 <div className='flex flex-col w-full gap-4 text-gray-800'>
                                     <label className='text-2xl font-bold'>Tổng số lượng:</label>
-                                    <Input size='large' value={totalQuantity} />
+                                    <Input size='large' disabled value={totalQuantity} />
                                 </div>
                                 <div className='flex flex-col w-full gap-4 text-gray-800'>
                                     <label className='text-2xl font-bold'>Tổng tiền hóa đơn:</label>
-                                    <Input size='large' value={formatVND(Number(totalPrice))} />
+                                    <Input
+                                        size='large'
+                                        disabled
+                                        value={formatVND(Number(totalPrice))}
+                                    />
                                 </div>
                                 <div className='flex flex-col w-full gap-4 text-gray-800'>
                                     <label className='text-2xl font-bold'>
                                         Trạng thái đơn hàng:
                                     </label>
-                                    <Input size='large' value={orderStatus} />
+                                    <Input size='large' disabled value={orderStatus} />
                                 </div>
                                 <div className='flex flex-col w-full gap-4 text-gray-800'>
                                     <label className='text-2xl font-bold'>
                                         Trạng thái thanh toán:
                                     </label>
-                                    <Input size='large' value={paymentStatus} />
+                                    <Input size='large' disabled value={paymentStatus} />
                                 </div>
                                 <div className='flex flex-col w-full gap-4 text-gray-800'>
                                     <label className='text-2xl font-bold'>
                                         Phương thức thanh toán:
                                     </label>
-                                    <Input size='large' value={paymentMethod} />
+                                    <Input size='large' disabled value={paymentMethod} />
                                 </div>
                                 <div className='flex flex-col w-full gap-4 text-gray-800'>
                                     <label className='text-2xl font-bold'>
                                         Phương thức vận chuyển:
                                     </label>
-                                    <Input size='large' value={deliveryMethod} />
+                                    <Input size='large' disabled value={deliveryMethod} />
                                 </div>
                             </div>
                         </div>
@@ -172,41 +182,60 @@ const OrderModalDetail = ({ isVisible, onCancel, order }) => {
                             orderData.detail.map((item, index) => (
                                 <div
                                     key={index}
-                                    className='flex flex-col items-start justify-center gap-5 p-10 bg-[#f4f6f8] shadow-lg rounded-xl mb-10'
+                                    className='flex items-center justify-between gap-5 px-10 py-5 bg-[#f4f6f8] shadow-lg rounded-xl mb-10'
                                 >
-                                    <div className='flex flex-col w-full gap-4 text-gray-800'>
-                                        <label className='text-2xl font-bold'>Số lượng:</label>
-                                        <Input size='large' value={item.quantity} />
+                                    <div className='flex items-center gap-10'>
+                                        <div className='flex items-center justify-center'>
+                                            {productData[index]?.sale > 0 ? (
+                                                <Badge.Ribbon
+                                                    text={`Sale ${productData[index]?.sale}%`}
+                                                    color='red'
+                                                >
+                                                    <img
+                                                        src={
+                                                            productData[index]?.image
+                                                                ? `${urlImage}${productData[index]?.image}`
+                                                                : 'https://placehold.co/380'
+                                                        }
+                                                        alt=''
+                                                        className='rounded-2xl size-52'
+                                                    />
+                                                </Badge.Ribbon>
+                                            ) : (
+                                                <div className=''>
+                                                    <img
+                                                        src={
+                                                            productData[index]?.image
+                                                                ? `${urlImage}${productData[index]?.image}`
+                                                                : 'https://placehold.co/380'
+                                                        }
+                                                        alt=''
+                                                        className='rounded-2xl size-52'
+                                                    />
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className='flex flex-col gap-5'>
+                                            <div className='flex items-center gap-2'>
+                                                <span className='text-2xl font-bold text-red-700'>
+                                                    {productData[index]?.name_product}
+                                                </span>
+                                                <span className='text-2xl font-[500]'>
+                                                    x {item.quantity}
+                                                </span>
+                                            </div>
+                                            <span className='text-xl font-[400] text-gray-500'>
+                                                {sizeData[index]?.size_name}
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div className='flex flex-col w-full gap-4 text-gray-800'>
-                                        <label className='text-2xl font-bold'>Giá:</label>
-                                        <Input
-                                            size='large'
-                                            value={
-                                                item.price ? formatVND(Number(item.price)) : '0 VND'
-                                            }
-                                        />
-                                    </div>
-                                    <div className='flex flex-col w-full gap-4 text-gray-800'>
-                                        <label className='text-2xl font-bold'>Tổng tiền:</label>
-                                        <Input
-                                            size='large'
-                                            value={formatVND(Number(item.total_price))}
-                                        />
-                                    </div>
-                                    <div className='flex flex-col w-full gap-4 text-gray-800'>
-                                        <label className='text-2xl font-bold'>Tên sản phẩm:</label>
-                                        <Input
-                                            size='large'
-                                            value={productData[index]?.name_product || ''}
-                                        />
-                                    </div>
-                                    <div className='flex flex-col w-full gap-4 text-gray-800'>
-                                        <label className='text-2xl font-bold'>Kích cỡ:</label>
-                                        <Input
-                                            size='large'
-                                            value={sizeData[index]?.description || ''}
-                                        />
+                                    <div className='flex flex-col gap-2'>
+                                        <span className='text-2xl font-[500] text-gray-800'>
+                                            {formatVND(Number(item.price))}
+                                        </span>
+                                        <span className='text-2xl font-[500] text-red-500'>
+                                            {formatVND(Number(item.total_price))}
+                                        </span>
                                     </div>
                                 </div>
                             ))}
