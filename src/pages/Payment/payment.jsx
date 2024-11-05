@@ -11,8 +11,8 @@ import {
 import { getSizeById } from '~/services/sizeService';
 import { toast } from 'react-toastify';
 import { createOrder } from '~/services/orderService';
-import { useNavigate } from 'react-router-dom';
 import { cartActions } from '~/redux/slice/cartSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Payment = () => {
     const token = useSelector((state) => state.auth.auth.access_token);
@@ -33,8 +33,8 @@ const Payment = () => {
 
     const [sizeByIdData, setSizeByIdData] = useState([]);
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchSizeById = async () => {
@@ -77,14 +77,14 @@ const Payment = () => {
         },
         {
             id: 2,
-            label: 'Stripe',
-            value: 'STRIPE'
+            label: 'ZaloPay',
+            value: 'ZALOPAY'
         }
     ];
 
     const handlePayment = async () => {
         const selectedPaymentMethod =
-            value === 'Thanh toán khi nhận hàng' ? 'Thanh toán khi nhận hàng' : 'STRIPE';
+            value === 'Thanh toán khi nhận hàng' ? 'Thanh toán khi nhận hàng' : 'ZALOPAY';
         const orderData = {
             name: nameUser,
             email: emailUser,
@@ -114,11 +114,15 @@ const Payment = () => {
 
             const newOrder = await createOrder(token, orderData);
             if (newOrder.status === true) {
-                toast.success(newOrder.message);
-                dispatch(cartActions.clearCartItems());
-                setTimeout(() => {
+                if (orderData?.payment_method === 'ZALOPAY') {
+                    window.location.href = newOrder.orderUrl;
+                    toast.success(newOrder.message);
+                    dispatch(cartActions.clearCartItems());
+                } else {
                     navigate('/product');
-                }, 1000);
+                    toast.success(newOrder.message);
+                    dispatch(cartActions.clearCartItems());
+                }
             } else {
                 toast.error(newOrder.message);
             }

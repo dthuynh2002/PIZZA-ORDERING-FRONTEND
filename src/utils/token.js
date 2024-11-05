@@ -1,13 +1,13 @@
 export const setToken = (name, value) => {
-    sessionStorage.setItem(name, JSON.stringify(value));
+    localStorage.setItem(name, JSON.stringify(value));
 };
 
 export const getToken = (name) => {
-    return JSON.parse(sessionStorage.getItem(name));
+    return JSON.parse(localStorage.getItem(name));
 };
 
 export const removeToken = (name) => {
-    sessionStorage.removeItem(name);
+    localStorage.removeItem(name);
 };
 
 // Save local storage
